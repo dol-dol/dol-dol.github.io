@@ -11,11 +11,12 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #000000;
+			 color: white;
         }
 
         #container {
-            background-color: white;
+            background-color: blue;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -29,11 +30,11 @@
 
         #word-list li {
             margin: 5px 0;
-            font-size: 18px;
+            font-size: 50px;
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #070707;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -50,9 +51,9 @@
 <body>
 
 <div id="container">
-    <h1>Mots Aléatoires</h1>
+    <h3>Mots extraits de la base de données du Générateur</h3>
     <ul id="word-list"></ul>
-    <button onclick="displayRandomWords()">Nouveaux mots</button>
+    <button onclick="displayRandomWords()">Nouvelle proposition</button>
 </div>
 
 <script>
