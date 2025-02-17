@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mots Aléatoires</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #word-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        #word-list li {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1>Mots Aléatoires</h1>
+    <ul id="word-list"></ul>
+    <button onclick="displayRandomWords()">Nouveaux mots</button>
+</div>
+
+<script>
+    async function displayRandomWords() {
+        try {
+            const response = await fetch('objects.json');
+
+            if (!response.ok) {
+                throw new Error('Erreur de chargement du fichier JSON: ' + response.status);
+            }
+
+            const words = await response.json();
+
+            if (!words || words.length === 0) {
+                document.getElementById("word-list").innerHTML = "<li>Aucun mot trouvé dans le fichier JSON. Vérifiez le contenu du fichier.</li>";
+                return;
+            }
+
+
+            const randomWords = [];
+            for (let i = 0; i < 5; i++) {
+                const randomIndex = Math.floor(Math.random() * words.length);
+                randomWords.push(words[randomIndex]);
+            }
+
+            const wordListElement = document.getElementById('word-list');
+            wordListElement.innerHTML = ''; // Efface la liste précédente
+
+            randomWords.forEach(word => {
+                const li = document.createElement('li');
+                li.textContent = word;
+                wordListElement.appendChild(li);
+            });
+
+        } catch (error) {
+            console.error('Erreur:', error);
+            document.getElementById("word-list").innerHTML = "<li>Erreur lors du chargement des mots. Vérifiez la console pour plus d'informations.</li>";
+
+        }
+    }
+
+    // Afficher les mots au chargement de la page
+    displayRandomWords();
+</script>
+
+</body>
+</html>
